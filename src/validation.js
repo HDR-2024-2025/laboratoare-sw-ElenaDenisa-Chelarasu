@@ -1,5 +1,6 @@
 const formContainer = document.getElementById('form-container');
 formContainer.addEventListener('submit', function(event) {
+    // get the documents
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -47,7 +48,7 @@ formContainer.addEventListener('submit', function(event) {
         return;
     }
 
-    
+
     if (!lastNameRegex.test(lastName)) {
         alert('Bad lastName');
         event.preventDefault();
