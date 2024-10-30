@@ -42,6 +42,9 @@ function validateForm() {
         alert("URL-ul site-ului este invalid. Introduceți un URL valid care începe cu http:// sau https://");
         return false;
     }
+    if (!validateProfileImage()) {
+        return false;
+    }
 
     // Dacă toate validările sunt trecute
     return true;
@@ -94,4 +97,27 @@ function validateDisplayName(displayName) {
 function validateWebsiteUrl(websiteUrl) {
     const websiteUrlRegex = /^https?:\/\/.+/;
     return websiteUrlRegex.test(websiteUrl);
+}
+
+// Validare dimensiune și format imagine
+function validateProfileImage() {
+    const imageInput = document.getElementById("profileImage");
+    const file = imageInput.files[0];
+    
+    if (!file) return false;
+
+    const maxSize = 2 * 1024 * 1024; // 2 MB
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+
+    if (!allowedTypes.includes(file.type)) {
+        alert("Formatul imaginii este invalid. Doar JPG, PNG și GIF sunt acceptate.");
+        return false;
+    }
+
+    if (file.size > maxSize) {
+        alert("Dimensiunea imaginii depășește 2 MB.");
+        return false;
+    }
+
+    return true;
 }
