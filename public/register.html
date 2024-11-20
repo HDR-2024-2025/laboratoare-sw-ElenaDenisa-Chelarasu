@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Înregistrare Utilizator</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Înregistrare Utilizator</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="registrationForm" method="POST" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Nume utilizator</label>
+                                <input type="text" class="form-control" id="username" name="username" required
+                                       pattern="^[a-zA-Z0-9_]{3,20}$">
+                                <div class="form-text">Între 3 și 20 caractere, doar litere, cifre și underscore.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Parolă</label>
+                                <input type="password" class="form-control" id="password" name="password" required
+                                       pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+                                <div class="form-text">Minim 8 caractere, cel puțin o literă și o cifră.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirmă parola</label>
+                                <input type="password" class="form-control" id="confirmPassword" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="firstName" class="form-label">Nume</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" required
+                                       pattern="^[A-Za-zĂăÎîȘșȚț\s]{2,50}$">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="lastName" class="form-label">Prenume</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" required
+                                       pattern="^[A-Za-zĂăÎîȘșȚț\s]{2,50}$">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="displayName" class="form-label">Nume afișat</label>
+                                <input type="text" class="form-control" id="displayName" name="displayName" required
+                                       minlength="2" maxlength="50">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="websiteUrl" class="form-label">URL Site propriu</label>
+                                <input type="url" class="form-control" id="websiteUrl" name="websiteUrl">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="profileImage" class="form-label">Imagine de profil</label>
+                                <input type="file" class="form-control" id="profileImage" name="profileImage"
+                                       accept="image/jpeg,image/png">
+                                <div class="form-text">Maxim 2MB, format .jpg, .jpeg sau .png</div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Înregistrare</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Validare client-side
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Parolele nu coincid!');
+                return;
+            }
+
+            const formData = new FormData(e.target);
+
+            try {
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert('Înregistrare reușită!');
+                    e.target.reset();
+                } else {
+                    alert(`Eroare: ${data.error}`);
+                }
+            } catch (error) {
+                alert('Eroare la înregistrare!' + error);
+                console.log(error);
+            }
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
