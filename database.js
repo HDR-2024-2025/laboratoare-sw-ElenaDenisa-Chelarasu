@@ -1,16 +1,15 @@
 // db.js
 const sqlite3 = require('sqlite3').verbose();
 const dbName = 'users.db';
-const fs = require('fs');
-const path = require('path');
 
+const logger = require('./public/js/logger');
 
 let db = new sqlite3.Database(dbName, (err) => {
     if(err){
         console.error(err.message);
     }
     else {
-        console.log("Connected to the database.");
+        logger.info(`Connected to the database.`);
         db.run(
             'CREATE TABLE IF NOT EXISTS users ( \
                 id INTEGER PRIMARY KEY AUTOINCREMENT, \
@@ -28,10 +27,10 @@ let db = new sqlite3.Database(dbName, (err) => {
                 CONSTRAINT username_format CHECK (length(username) >= 3 AND length(username) <= 20)\
             );', (err) => {
                 if(err){
-                    console.error(err.message);
+                    logger.critical(`Redirecting to login page: Database error: ${err.message}`);
                 }
                 else {
-                    console.log('Table created or existed.');
+                    logger.info(`Table created or existed.`);
                 }
             }
         )

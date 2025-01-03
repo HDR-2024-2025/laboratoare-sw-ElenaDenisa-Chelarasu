@@ -15,8 +15,12 @@
     "express": "^4.21.2",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.18.1",
+    "fast-file-rotate": "^1.0.1",
     "multer": "^1.4.5-lts.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0",
+    "winston-request-logger": "^1.0.7"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

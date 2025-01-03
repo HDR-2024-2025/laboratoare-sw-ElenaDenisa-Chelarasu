@@ -1,14 +1,28 @@
+//index.js
+
 const express = require('express');
 const router = express.Router();
 const db = require('../database');
-// const { isAuthenticated } = require('./auth');
+
+const logger = require('../public/js/logger');
 
 function isAuthenticated(req, res, next) {
     if (req.session.user) {
-        console.log('req.session.user', req.session.user)
-        next(); // Utilizatorul este autentificat
+        logger.info(`isAuthenticated: req.session.user: ${req.session.user}`, {
+            method: req.method,
+            route: req.originalUrl || req.url,
+            ip: req.ip || req.connection.remoteAddress,
+            statusCode: res.statusCode
+        });
+        next(); //User authenticated
     } else {
-        res.redirect('/auth/login'); // Redirecționăm către pagina de login
+        logger.warn(`Redirecting to profile page: User not authenticated`, {
+            method: req.method,
+            route: req.originalUrl || req.url,
+            ip: req.ip || req.connection.remoteAddress,
+            statusCode: res.statusCode
+        });
+        res.redirect('/api/login');
     };
 };
 
@@ -18,14 +32,24 @@ router.get('/', isAuthenticated, (req, res) => {
     const sql = `SELECT username, email, firstName, lastName, displayName, websiteUrl, profileImagePath FROM users WHERE id = ?`;
     db.get(sql, [userdId], (err, user) => {
         if (err) {
-            console.error(err);
-            return res.redirect('/auth/login');
+            logger.critical(`Redirecting to login page: Database error: ${err.message}`, {
+                method: req.method,
+                route: req.originalUrl || req.url,
+                ip: req.ip || req.connection.remoteAddress,
+                statusCode: res.statusCode
+            });
+            return res.redirect('/api/login');
         }
 
-        // Rendem pagina index cu informațiile utilizatorului
+        //Render profile page
+        logger.info(`Redirecting to profile page`, {
+            method: req.method,
+            route: req.originalUrl || req.url,
+            ip: req.ip || req.connection.remoteAddress,
+            statusCode: res.statusCode
+        });
         res.render('index', { user });
     });
 });
-
 
 module.exports = router;
