@@ -52,4 +52,38 @@ router.get('/', isAuthenticated, (req, res) => {
     });
 });
 
+router.get('/cauta', (req, res) => {
+    const searchName = req.query.nume || ''; //Search parameter
+    // Directly inject user input into the SQL query
+    const sql = `SELECT firstName, lastName FROM users WHERE firstName LIKE '%${searchName}%'`;
+
+    logger.info(`Searching for: ${searchName}`, {
+        method: req.method,
+        route: req.originalUrl || req.url,
+        ip: req.ip || req.connection.remoteAddress,
+        statusCode: res.statusCode
+    });
+
+    //Cautam utilizatori în baza de date
+    db.all(sql, (err, rows) => {
+        if (err) {
+            logger.critical(`Redirecting to login page: Database error: ${err.message}`, {
+                method: req.method,
+                route: req.originalUrl || req.url,
+                ip: req.ip || req.connection.remoteAddress,
+                statusCode: res.statusCode
+            });
+            return res.redirect('/api/login');
+        }
+
+        // Redăm pagina de căutare cu rezultatele găsite
+        res.render('cauta', {
+            searchParameter: { name: searchName },
+            foundPeople: rows
+        });
+    });
+});
+
+
+
 module.exports = router;
