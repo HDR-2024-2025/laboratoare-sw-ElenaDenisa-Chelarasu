@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autentificare</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Autentificare</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="/auth/login" method="post">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Nume utilizator</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="current-password" class="form-label">Parola</label>
+                                <input type="password" class="form-control" id="current-password" name="password" required>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Autentificare</button>
+                            </div>
+
+                            <div class="text-center mt-3">
+                                <p>Nu ai cont? <a href="/auth/signup">Inregistrare</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/login.js"></script>
+</body>
+</html>

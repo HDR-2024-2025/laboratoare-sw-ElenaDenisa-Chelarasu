@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ro">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Înregistrare Utilizator</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-</head>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Înregistrare Utilizator</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    </head>
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -15,7 +15,7 @@
                         <h3 class="text-center">Înregistrare Utilizator</h3>
                     </div>
                     <div class="card-body">
-                        <form id="registrationForm" method="POST" enctype="multipart/form-data">
+                        <form action="/auth/signup" method="post" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Nume utilizator</label>
                                 <input type="text" class="form-control" id="username" name="username" required
@@ -29,15 +29,15 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="password" class="form-label">Parolă</label>
+                                <label for="password" class="form-label">Parola</label>
                                 <input type="password" class="form-control" id="password" name="password" required
                                        pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
-                                <div class="form-text">Minim 8 caractere, cel puțin o literă și o cifră.</div>
+                                <div class="form-text">Minim 8 caractere, cel putin o litera si o cifra.</div>
                             </div>
 
                             <div class="mb-3">
-                                <label for="confirmPassword" class="form-label">Confirmă parola</label>
-                                <input type="password" class="form-control" id="confirmPassword" required>
+                                <label for="confirm-password" class="form-label">Confirmarea parolei</label>
+                                <input type="password" class="form-control" id="confirm-password" name="confirmPassword" required>
                             </div>
 
                             <div class="mb-3">
@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="displayName" class="form-label">Nume afișat</label>
+                                <label for="displayName" class="form-label">Nume utilizator</label>
                                 <input type="text" class="form-control" id="displayName" name="displayName" required
                                        minlength="2" maxlength="50">
                             </div>
@@ -77,42 +77,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            // Validare client-side
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            if (password !== confirmPassword) {
-                alert('Parolele nu coincid!');
-                return;
-            }
-
-            const formData = new FormData(e.target);
-
-            try {
-                const response = await fetch('/register', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const data = await response.json();
-                
-                if (response.ok) {
-                    alert('Înregistrare reușită!');
-                    e.target.reset();
-                } else {
-                    alert(`Eroare: ${data.error}`);
-                }
-            } catch (error) {
-                alert('Eroare la înregistrare!' + error);
-                console.log(error);
-            }
-        });
-    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
