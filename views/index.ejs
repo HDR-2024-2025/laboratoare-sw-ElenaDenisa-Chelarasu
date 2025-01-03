@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil utilizator</title>
+    <title>Pagina de profil</title>
 </head>
 <body>
     <h1>Profilul utilizatorului</h1>
@@ -26,7 +26,7 @@
             <td><%= user.lastName %></td>
         </tr>
         <tr>
-            <td><strong>Nume afișat:</strong></td>
+            <td><strong>Nume afisat:</strong></td>
             <td><%= user.displayName %></td>
         </tr>
         <tr>
@@ -39,7 +39,7 @@
                 <% if (user.profileImagePath) { %>
                     <img src="/<%= user.profileImagePath %>" alt="Profil" style="width: 150px; height: 150px;">
                 <% } else { %>
-                    <p>Fără imagine de profil</p>
+                    <p>Fara imagine de profil</p>
                 <% } %>
             </td>
         </tr>
@@ -48,5 +48,82 @@
     <form action="/auth/logout" methond="POST">
         <input type="submit" name="logout" value="logout">
     </form>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h2>Pagina de profil</h2>
+                        <h2>Bine ai venit <%=user.username %>!</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <% if (user.profileImagePath) { %>
+                                <img src="/<%= user.profileImagePath %>" alt="Profil" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px;">
+                            <% } else { %>
+                                <img src="https://via.placeholder.com/150" alt="Fara imagine de profil" class="rounded-circle img-thumbnail">
+                            <% } %>
+                        </div>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Nume utilizator</th>
+                                    <td><%= user.username %></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Email</th>
+                                    <td><%= user.email %></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Nume</th>
+                                    <td><%= user.lastName %></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Prenume</th>
+                                    <td><%= user.firstName %></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Nume afișat</th>
+                                    <td><%= user.displayName %></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Website</th>
+                                    <td>
+                                        <% if (user.websiteUrl) { %>
+                                            <a href="<%= user.websiteUrl %>" target="_blank" class="text-decoration-none">
+                                                <%= user.websiteUrl %>
+                                            </a>
+                                        <% } else { %>
+                                            Nu există URL
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer text-center">
+                        <form action="/auth/logout" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
