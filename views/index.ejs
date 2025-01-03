@@ -3,11 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Profil utilizator</title>
 </head>
 <body>
-    <h1>Home</h1>
-    <h2>Welcome, <%=username %></h2>
+    <h1>Profilul utilizatorului</h1>
+    <h2>Welcome, <%=user.username %></h2>
+    <table>
+        <tr>
+            <td><strong>Nume utilizator:</strong></td>
+            <td><%= user.username %></td>
+        </tr>
+        <tr>
+            <td><strong>Email:</strong></td>
+            <td><%= user.email %></td>
+        </tr>
+        <tr>
+            <td><strong>Prenume:</strong></td>
+            <td><%= user.firstName %></td>
+        </tr>
+        <tr>
+            <td><strong>Nume:</strong></td>
+            <td><%= user.lastName %></td>
+        </tr>
+        <tr>
+            <td><strong>Nume afișat:</strong></td>
+            <td><%= user.displayName %></td>
+        </tr>
+        <tr>
+            <td><strong>Website:</strong></td>
+            <td><a href="<%= user.websiteUrl %>" target="_blank"><%= user.websiteUrl %></a></td>
+        </tr>
+        <tr>
+            <td><strong>Imagine profil:</strong></td>
+            <td>
+                <% if (user.profileImagePath) { %>
+                    <img src="/<%= user.profileImagePath %>" alt="Profil" style="width: 150px; height: 150px;">
+                <% } else { %>
+                    <p>Fără imagine de profil</p>
+                <% } %>
+            </td>
+        </tr>
+    </table>
 
     <form action="/auth/logout" methond="POST">
         <input type="submit" name="logout" value="logout">

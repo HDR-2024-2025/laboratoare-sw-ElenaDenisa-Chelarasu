@@ -29,4 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.listen(process.env.PORT || 3000);
