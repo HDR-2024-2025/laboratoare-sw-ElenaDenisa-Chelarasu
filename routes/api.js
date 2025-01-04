@@ -211,7 +211,11 @@ router.get('/logout', (req, res) => {
         });
         res.clearCookie('connect.sid');
         res.redirect('/api/login');
-    })
-})
+    });
+});
 
+//Lab - 5
+router.get('/date', (req, res, next) => {
+    res.render('signup');
+});
 module.exports = router;

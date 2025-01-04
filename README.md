@@ -49,3 +49,6 @@ banner: '3.44.2'
 
 ```
 SQLite integration tutorial: https://www.sqlitetutorial.net/sqlite-nodejs/
+
+
+Lab5: Known problem: The fetch for the attacker server not working

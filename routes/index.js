@@ -52,7 +52,7 @@ router.get('/', isAuthenticated, (req, res) => {
     });
 });
 
-// Lab 4
+// Lab - 4
 router.get('/cauta', (req, res) => {
     // const searchName = req.query.nume || ''; //Search parameter // With sanitiastion
     // Directly inject user input into the SQL query
@@ -91,6 +91,16 @@ router.get('/cauta', (req, res) => {
     });
 });
 
+// Lab - 5
+router.get('/trigger-attack', (req, res) => {
+    logger.info(`Redirecting to trigger attack page`, {
+        method: req.method,
+        route: req.originalUrl || req.url,
+        ip: req.ip || req.connection.remoteAddress,
+        statusCode: res.statusCode
+    });
+    res.render('trigger-attack');
+});
 
 
 module.exports = router;
