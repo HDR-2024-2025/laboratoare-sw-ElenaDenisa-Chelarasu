@@ -52,22 +52,23 @@ router.get('/', isAuthenticated, (req, res) => {
     });
 });
 
+// Lab 4
 router.get('/cauta', (req, res) => {
-    const searchName = req.query.nume || ''; //Search parameter
+    // const searchName = req.query.nume || ''; //Search parameter // With sanitiastion
     // Directly inject user input into the SQL query
-    const sql = `SELECT firstName, lastName FROM users WHERE firstName LIKE '%${searchName}%'`;
+    const sql = `SELECT firstName, lastName FROM users WHERE firstName LIKE '%${req.query.nume}%'`;
 
-    logger.info(`Searching for: ${searchName}`, {
+    logger.info(`Searching for: ${req.query.nume}`, {
         method: req.method,
         route: req.originalUrl || req.url,
         ip: req.ip || req.connection.remoteAddress,
         statusCode: res.statusCode
     });
 
-    //Cautam utilizatori în baza de date
+    //Cautam utilizatori in baza de date
     db.all(sql, (err, rows) => {
         if (err) {
-            logger.critical(`Redirecting to login page: Database error: ${err.message}`, {
+            logger.error(`Redirecting to login page: Database error: ${err.message}`, {
                 method: req.method,
                 route: req.originalUrl || req.url,
                 ip: req.ip || req.connection.remoteAddress,
@@ -76,9 +77,15 @@ router.get('/cauta', (req, res) => {
             return res.redirect('/api/login');
         }
 
-        // Redăm pagina de căutare cu rezultatele găsite
+        //Rending found stuff
+        logger.info(`Rendering cauta page`, {
+            method: req.method,
+            route: req.originalUrl || req.url,
+            ip: req.ip || req.connection.remoteAddress,
+            statusCode: res.statusCode
+        });
         res.render('cauta', {
-            searchParameter: { name: searchName },
+            searchParameter: { name: req.query.nume },
             foundPeople: rows
         });
     });
