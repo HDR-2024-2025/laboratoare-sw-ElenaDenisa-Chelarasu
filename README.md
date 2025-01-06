@@ -51,4 +51,9 @@ banner: '3.44.2'
 SQLite integration tutorial: https://www.sqlitetutorial.net/sqlite-nodejs/
 
 
-Lab5: Known problem: The fetch for the attacker server not working
+Lab5:
+Possible problems and how to solve it:
+```
+Access to fetch at 'http://localhost:5000/api/data' from origin 'http://localhost:4567' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled
+```
+You need to enable CORS on the server where the API is hosted (http://127.0.0.1:5000)
