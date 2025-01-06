@@ -56,4 +56,19 @@ Possible problems and how to solve it:
 ```
 Access to fetch at 'http://localhost:5000/api/data' from origin 'http://localhost:4567' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled
 ```
+
+Lab6:
+URL vulnerabil:
+```
+http://localhost:4567/cauta?q=' OR '1'='1
+```
+In acest caz, query-ul devine ```SELECT * FROM users WHERE name = '' OR '1'='1' ``` si ```OR '1'='1'``` este mereu adevarat, deci ne vor fi returnati toti utilizatorii din tabelul users. Pentru a rezolva problema SQL injection, trebuie sa sanitizam datele, de exemplu prin utilizarea Sequelize. Aceasta sanitizare se face si automat cu ajutorul sqlite.
+
+URL vulnerabil:
+```
+http://localhost:4567/cauta?q=<script type="text/javascript">alert("vulnerable");</script>
+```
+Acsta va realiza un pop up de tip alerta in care se va mentiona ca siteul este vulnerabil. Pentru a preveni acest tip de atac trebuie sa utilizam ```<%= %>``` în loc de ```<%- %>```. De asemenea, ar trebui sa sanitizam datele primite din query.
+
+
 You need to enable CORS on the server where the API is hosted (http://127.0.0.1:5000)

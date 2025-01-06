@@ -52,8 +52,11 @@ router.get('/', isAuthenticated, (req, res) => {
     });
 });
 
-// Lab - 4
+// Lab - 4 + updated at lab 6
 router.get('/cauta', (req, res) => {
+    // Preluam parametrul 'q' din query string
+    const queryParam = req.query.q || '';
+
     // const searchName = req.query.nume || ''; //Search parameter // With sanitiastion
     // Directly inject user input into the SQL query
     const sql = `SELECT firstName, lastName FROM users WHERE firstName LIKE '%${req.query.nume}%'`;
@@ -86,7 +89,8 @@ router.get('/cauta', (req, res) => {
         });
         res.render('cauta', {
             searchParameter: { name: req.query.nume },
-            foundPeople: rows
+            foundPeople: rows,
+            qq: queryParam
         });
     });
 });

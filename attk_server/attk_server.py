@@ -11,6 +11,12 @@ logging.basicConfig(
 )
 app = Flask(__name__)
 cors = CORS(app) # allow CORS for all domains on all routes
+
+#Lab6
+def save_payload(payload):
+    with open('payloads.txt', 'a') as f:
+        f.write(f"{datetime.now()} - {payload}\n")
+
 @app.route("/")
 def hello_world():
     return "<p>Hai sa fugim aici: http://127.0.0.1:5000/api/data </p>"
@@ -48,6 +54,9 @@ def apiDate():
               f"{request.json}")
         app.logger.info(f"Cookies (Cookie-urile trimise de catre client): {request.cookies}")
         app.logger.info(f"\n")
+
+        #Lab6
+        save_payload(str(request.json))
 
     return "Data logged successfully!", 200
 
