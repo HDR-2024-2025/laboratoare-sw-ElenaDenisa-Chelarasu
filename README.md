@@ -77,3 +77,9 @@ Lab10:
 Link to see the phishing email: http://localhost:5000/api/email
 Link to the fake amazon phishing page: http://localhost:5000/api/phishing
 Link to view the credentials sent to the server: http://localhost:5000/api/view-credentials
+
+Lab11:
+You can use this command to use the openssl in Windows more easily
+```
+"C:\Program Files\Git\usr\bin\openssl.exe" req -nodes -new -x509 -keyout server.key -out server.cert -days 365
+```
