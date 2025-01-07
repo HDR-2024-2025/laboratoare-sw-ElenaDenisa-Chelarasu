@@ -8,6 +8,8 @@ const logger = require("./public/js/logger");
 const https = require('https');
 const fs = require('fs');
 
+//Lab9
+var memoryStore = new session.MemoryStore();
 
 const indexRouter = require("./routes/index");
 const authRouter = require("./routes/api");
@@ -22,11 +24,28 @@ app.use(
   })
 );
 
+//Lab9
+app.use(session({
+  secret: 'some secret',
+  resave: false,
+  saveUninitialized: true,
+  store: memoryStore
+}));
+
+const keycloak = require('./public/js/keycloakConfig').initKeycloak(memoryStore);
+app.use(keycloak.middleware());
+
+//Lab9
+app.get('/private', keycloak.protect(), (req, res) => {
+  res.send('<h1>Welcome to the private area!</h1>');
+});
+
 //Set up private and public key
 const privateKey = fs.readFileSync('server.key', 'utf8');
 const certificate = fs.readFileSync('server.cert', 'utf8');
 const credentials = {
-  key: privateKey, cert: certificate
+  key: privateKey,
+  cert: certificate
 };
 
 //HTTPS server
