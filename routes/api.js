@@ -43,6 +43,7 @@ router.get('/login', (req, res, next) => {
     res.render('login');
 });
 
+//Lab 8
 router.post('/login', (req, res, next) => {
     //Validation:
     if (!req.body.username || !req.body.password) {
