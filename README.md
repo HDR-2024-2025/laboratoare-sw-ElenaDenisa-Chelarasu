@@ -72,3 +72,8 @@ Acsta va realiza un pop up de tip alerta in care se va mentiona ca siteul este v
 
 
 You need to enable CORS on the server where the API is hosted (http://127.0.0.1:5000)
+
+Lab10:
+Link to see the phishing email: http://localhost:5000/api/email
+Link to the fake amazon phishing page: http://localhost:5000/api/phishing
+Link to view the credentials sent to the server: http://localhost:5000/api/view-credentials
