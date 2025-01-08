@@ -1,3 +1,5 @@
+**Lab3:**
+
 Log file analizer usage:
 
 ```
@@ -14,7 +16,8 @@ python log_analyzer.py 3
 python log_analyzer.py 2 --log-dir /path/to/logs
 ```
 
-Lab 4:
+**Lab 4:**
+
 The logs are showing us that SQLmap is testing for SQL injection on GET parameter 'nume'. It tried different attacks and it successfully extracted the users table. 
 
 
@@ -51,13 +54,15 @@ banner: '3.44.2'
 SQLite integration tutorial: https://www.sqlitetutorial.net/sqlite-nodejs/
 
 
-Lab5:
+**Lab5:**
+
 Possible problems and how to solve it:
 ```
 Access to fetch at 'http://localhost:5000/api/data' from origin 'http://localhost:4567' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled
 ```
 
-Lab6:
+**Lab6:**
+
 URL vulnerabil:
 ```
 http://localhost:4567/cauta?q=' OR '1'='1
@@ -73,12 +78,14 @@ Acsta va realiza un pop up de tip alerta in care se va mentiona ca siteul este v
 
 You need to enable CORS on the server where the API is hosted (http://127.0.0.1:5000)
 
-Lab10:
+**Lab10:**
+
 Link to see the phishing email: http://localhost:5000/api/email
 Link to the fake amazon phishing page: http://localhost:5000/api/phishing
 Link to view the credentials sent to the server: http://localhost:5000/api/view-credentials
 
-Lab11:
+**Lab11:**
+
 You can use this command to use the openssl in Windows more easily
 ```
 "C:\Program Files\Git\usr\bin\openssl.exe" req -nodes -new -x509 -keyout server.key -out server.cert -days 365
